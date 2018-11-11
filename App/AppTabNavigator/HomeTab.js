@@ -86,10 +86,12 @@ export default class HomeTab extends Component {
   }
 
   render () {
+    console.log(deviceWidth);
     return (
       <SafeAreaView style={{flex: 1}}>
 
         <View style={styles.container}>
+
           <View
             style={{
               flexDirection: 'row',
@@ -103,9 +105,9 @@ export default class HomeTab extends Component {
 
             <View
               style={{
-                height: 240,
-                width: 240,
-                borderRadius: 120,
+                height: deviceWidth * 0.6,
+                width: deviceWidth * 0.6,
+                borderRadius: (deviceWidth * 0.6)/2,
                 backgroundColor: '#6B7FF8',
                 justifyContent: 'center',
               }}
@@ -124,7 +126,7 @@ export default class HomeTab extends Component {
 
           </View>
 
-          <View style={{postion: 'absolute', flex: 1}}>
+          <View style={{position: 'absolute',alignSelf: 'center',flex:1,marginTop:130}}>
             <ScrollView scrollEventThrottle={16}>
 
               <View

@@ -11,6 +11,8 @@ import {
   Dimensions,
 } from 'react-native';
 
+var deviceWidth = Dimensions.get ('window').width;
+
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export default class ExploreTab extends Component {
@@ -20,6 +22,7 @@ export default class ExploreTab extends Component {
     ),
   };
   render () {
+    console.log(deviceWidth);
     return (
       <SafeAreaView style={styles.container}>
         <View
@@ -27,7 +30,6 @@ export default class ExploreTab extends Component {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems:'center',
-            alignSelf:'auto',
             top: '-10%',
             left: '-5%',
           }}
@@ -35,9 +37,9 @@ export default class ExploreTab extends Component {
 
           <View
             style={{
-              height: 240,
-              width: 240,
-              borderRadius: 120,
+              height: 250,
+              width: 250,
+              borderRadius: (250)/2,
               backgroundColor: '#6B7FF8',
               justifyContent: 'center',
             }}
@@ -49,7 +51,7 @@ export default class ExploreTab extends Component {
           <View>
             <Icon
               name="ios-search"
-              size={20}
+              size={29}
               style={{padding: 12, color: '#8C899A'}}
             />
           </View>
@@ -62,5 +64,6 @@ export default class ExploreTab extends Component {
 const styles = StyleSheet.create ({
   container: {
     flex: 1,
+    position:'relative'
   },
 });
