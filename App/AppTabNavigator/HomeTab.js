@@ -10,6 +10,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import LinearGradient from 'react-native-linear-gradient';
 
 import Card from './components/Card';
 
@@ -86,7 +87,7 @@ export default class HomeTab extends Component {
   }
 
   render () {
-    console.log(deviceWidth);
+    console.log (deviceWidth);
     return (
       <SafeAreaView style={{flex: 1}}>
 
@@ -102,20 +103,32 @@ export default class HomeTab extends Component {
               left: '-5%',
             }}
           >
-
-            <View
+            <LinearGradient
+              colors={['#756AFF', '#55D5E2']}
+              start={{x: 0.0, y: 1.0}}
+              end={{x: 1.0, y: 0.0}}
+              locations={[0.3, 0.9]}
               style={{
                 height: deviceWidth * 0.6,
                 width: deviceWidth * 0.6,
-                borderRadius: (deviceWidth * 0.6)/2,
-                backgroundColor: '#6B7FF8',
+                borderRadius: deviceWidth * 0.6 / 2,
                 justifyContent: 'center',
               }}
             >
-              <Text style={{fontSize: 28, color: '#fff', textAlign: 'center'}}>
+
+              <Text
+                style={{
+                  fontSize: 28,
+                  color: '#fff',
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                }}
+              >
                 {'Discover Restaurants'}
               </Text>
-            </View>
+
+            </LinearGradient>
+
             <View>
               <Icon
                 name="ios-search"
@@ -126,7 +139,14 @@ export default class HomeTab extends Component {
 
           </View>
 
-          <View style={{position: 'absolute',alignSelf: 'center',flex:1,marginTop:130}}>
+          <View
+            style={{
+              position: 'absolute',
+              alignSelf: 'center',
+              flex: 1,
+              marginTop: 130,
+            }}
+          >
             <ScrollView scrollEventThrottle={16}>
 
               <View
