@@ -21,10 +21,10 @@ export default class Card extends Component {
     return (
       <View
         style={{
-          height: 300,
+          height: 250,
           width: deviceWidth * 0.8,
           marginTop: 12,
-          marginBottom: 48,
+          marginBottom: 24,
         }}
       >
         <Image
@@ -99,7 +99,11 @@ export default class Card extends Component {
           </View>
 
           <View>
-            <Text style={{marginLeft: 62, fontSize: 14, color: '#fff'}}>
+            <Text
+              style={{marginLeft: 62, fontSize: 14, color: '#fff'}}
+              numberOfLines={2}
+              ellipsizeMode="tail"
+            >
               {this.state.item.description}
             </Text>
           </View>
@@ -114,7 +118,7 @@ export default class Card extends Component {
         >
           <View
             style={{
-              width: deviceWidth/3,
+              width: deviceWidth / 3,
               height: 30,
               borderRadius: 15,
               backgroundColor: '#484757',
