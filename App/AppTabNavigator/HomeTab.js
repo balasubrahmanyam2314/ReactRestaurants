@@ -121,32 +121,45 @@ export default class HomeTab extends Component {
 
           </LinearGradient>
 
-          <Icon
-            name="ios-search"
-            size={30}
-            style={{
-              padding: 12,
-              color: '#8C899A',
-              position: 'absolute',
-              alignSelf: 'flex-end',
-              marginTop: 32,
-            }}
-          />
-
           <View
             style={{
               position: 'absolute',
-              alignSelf: 'center',
               flex: 1,
-              top: 0,
-              bottom: 0,
+              width: '100%',
+              height: '100%',
             }}
           >
-            <ScrollView scrollEventThrottle={16}>
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-end',
+              }}
+            >
+              <Icon
+                name="ios-search"
+                size={30}
+                style={{
+                  padding: 12,
+                  color: '#8C899A',
+                  marginTop: 32,
+                }}
+              />
+            </View>
 
-              {this.renderData ()}
+            <View
+              style={{
+                alignSelf: 'center',
+                flex: 6,
+              }}
+            >
+              <ScrollView
+                scrollEventThrottle={16}
+                showsVerticalScrollIndicator={false}
+              >
+                {this.renderData ()}
+              </ScrollView>
+            </View>
 
-            </ScrollView>
           </View>
 
         </View>
