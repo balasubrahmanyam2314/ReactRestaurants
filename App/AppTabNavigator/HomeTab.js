@@ -8,6 +8,7 @@ import {
   StyleSheet,
   ScrollView,
   SafeAreaView,
+  Animated,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -26,7 +27,8 @@ export default class HomeTab extends Component {
   constructor () {
     super ();
     this.state = {
-      data: {},
+      data: [],
+      scrollY: new Animated.Value(0),
     };
 
     // Set dummy data for result
@@ -87,7 +89,7 @@ export default class HomeTab extends Component {
   }
 
   render () {
-    console.log (deviceWidth);
+    
     return (
       <SafeAreaView style={{flex: 1}}>
 
@@ -129,10 +131,11 @@ export default class HomeTab extends Component {
               height: '100%',
             }}
           >
-            <View
+            <Animated.View
               style={{
                 flex: 1,
                 alignItems: 'flex-end',
+                justifyContent:'center',
               }}
             >
               <Icon
@@ -141,10 +144,10 @@ export default class HomeTab extends Component {
                 style={{
                   padding: 12,
                   color: '#8C899A',
-                  marginTop: 32,
+                  marginRight:12
                 }}
               />
-            </View>
+            </Animated.View>
 
             <View
               style={{
@@ -155,6 +158,9 @@ export default class HomeTab extends Component {
               <ScrollView
                 scrollEventThrottle={16}
                 showsVerticalScrollIndicator={false}
+                onScroll={Animated.event ([
+                  {nativeEvent: {contentOffset: {y: this.state.scrollY}}},
+                ])}
               >
                 {this.renderData ()}
               </ScrollView>

@@ -40,7 +40,7 @@ const AppTabNavigator = createBottomTabNavigator({
         screen: ProfileTab
     }
 },{
-    initialRouteName: 'Home',
+    initialRouteName: 'Notification',
     animationEnabled:true,
     tabBarPosition:'bottom',
     tabBarOptions:{
