@@ -21,7 +21,7 @@ export default class Card extends Component {
     return (
       <View
         style={{
-          height: 300,
+          height: 250,
           width: deviceWidth * 0.8,
           marginTop: 12,
           marginBottom: 48,

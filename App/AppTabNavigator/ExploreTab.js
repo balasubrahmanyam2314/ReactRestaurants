@@ -22,41 +22,34 @@ export default class ExploreTab extends Component {
     ),
   };
   render () {
-    console.log(deviceWidth);
+    console.log (deviceWidth);
     return (
       <SafeAreaView style={styles.container}>
+
         <View
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems:'center',
+            height: 250,
+            width: 250,
+            borderRadius: 250 / 2,
+            backgroundColor: '#6B7FF8',
+            justifyContent: 'center',
             top: '-10%',
             left: '-5%',
           }}
         >
-
-          <View
-            style={{
-              height: 250,
-              width: 250,
-              borderRadius: (250)/2,
-              backgroundColor: '#6B7FF8',
-              justifyContent: 'center',
-            }}
-          >
-            <Text style={{fontSize: 28, color: '#fff', textAlign: 'center'}}>
-              {'Discover Restaurants'}
-            </Text>
-          </View>
-          <View>
-            <Icon
-              name="ios-search"
-              size={29}
-              style={{padding: 12, color: '#8C899A'}}
-            />
-          </View>
-
+          <Text style={{fontSize: 28, color: '#fff', textAlign: 'center'}}>
+            {'Discover Restaurants'}
+          </Text>
         </View>
+
+        <View style={{position: 'absolute',alignSelf:'flex-end',marginTop:32}}>
+          <Icon
+            name="ios-search"
+            size={29}
+            style={{padding: 12, color: '#8C899A'}}
+          />
+        </View>
+
       </SafeAreaView>
     );
   }
@@ -64,6 +57,6 @@ export default class ExploreTab extends Component {
 const styles = StyleSheet.create ({
   container: {
     flex: 1,
-    position:'relative'
+    position: 'relative',
   },
 });

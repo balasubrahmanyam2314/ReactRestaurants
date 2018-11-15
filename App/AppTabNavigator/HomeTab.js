@@ -15,6 +15,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Card from './components/Card';
 
 var deviceWidth = Dimensions.get ('window').width;
+var deviceHeight = Dimensions.get ('window').height;
 
 export default class HomeTab extends Component {
   static navigationOptions = {
@@ -93,69 +94,57 @@ export default class HomeTab extends Component {
 
         <View style={styles.container}>
 
-          <View
+          <LinearGradient
+            colors={['#756AFF', '#55D5E2']}
+            start={{x: 0.0, y: 1.0}}
+            end={{x: 1.0, y: 0.0}}
+            locations={[0.3, 0.9]}
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
+              height: deviceWidth * 0.6,
+              width: deviceWidth * 0.6,
+              borderRadius: deviceWidth * 0.6 / 2,
+              justifyContent: 'center',
               alignItems: 'center',
-              alignSelf: 'auto',
-              top: '-10%',
-              left: '-5%',
+              top: '-15%',
+              left: '-8%',
             }}
           >
-            <LinearGradient
-              colors={['#756AFF', '#55D5E2']}
-              start={{x: 0.0, y: 1.0}}
-              end={{x: 1.0, y: 0.0}}
-              locations={[0.3, 0.9]}
+
+            <Text
               style={{
-                height: deviceWidth * 0.6,
-                width: deviceWidth * 0.6,
-                borderRadius: deviceWidth * 0.6 / 2,
-                justifyContent: 'center',
+                fontSize: 28,
+                color: '#fff',
+                textAlign: 'center',
+                fontWeight: 'bold',
               }}
             >
+              {'Discover Restaurants'}
+            </Text>
 
-              <Text
-                style={{
-                  fontSize: 28,
-                  color: '#fff',
-                  textAlign: 'center',
-                  fontWeight: 'bold',
-                }}
-              >
-                {'Discover Restaurants'}
-              </Text>
+          </LinearGradient>
 
-            </LinearGradient>
-
-            <View>
-              <Icon
-                name="ios-search"
-                size={30}
-                style={{padding: 12, color: '#8C899A'}}
-              />
-            </View>
-
-          </View>
+          <Icon
+            name="ios-search"
+            size={30}
+            style={{
+              padding: 12,
+              color: '#8C899A',
+              position: 'absolute',
+              alignSelf: 'flex-end',
+              marginTop: 32,
+            }}
+          />
 
           <View
             style={{
               position: 'absolute',
               alignSelf: 'center',
               flex: 1,
-              marginTop: 130,
             }}
           >
             <ScrollView scrollEventThrottle={16}>
 
-              <View
-                style={{
-                  alignItems: 'center',
-                }}
-              >
-                {this.renderData ()}
-              </View>
+              {this.renderData ()}
 
             </ScrollView>
           </View>
@@ -170,11 +159,5 @@ const styles = StyleSheet.create ({
   container: {
     flex: 1,
     backgroundColor: '#242132',
-  },
-  viewStyle: {
-    height: deviceWidth * 0.5,
-    width: deviceWidth * 0.5,
-    borderRadius: deviceWidth * 0.5,
-    backgroundColor: '#6B7FF8',
   },
 });
