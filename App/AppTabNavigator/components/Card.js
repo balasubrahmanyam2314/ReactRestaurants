@@ -6,6 +6,8 @@ import {Dimensions, View, Text, StyleSheet, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Rating} from 'react-native-ratings';
 
+import LinearGradient from 'react-native-linear-gradient';
+
 var deviceWidth = Dimensions.get ('window').width;
 
 export default class Card extends Component {
@@ -34,6 +36,18 @@ export default class Card extends Component {
             width: null,
             height: null,
             borderRadius: 10,
+          }}
+        />
+
+        <LinearGradient
+          colors={['#242132', 'transparent']}
+          style={{
+            top: 0,
+            borderRadius: 10,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            position: 'absolute',
           }}
         />
 
@@ -101,7 +115,7 @@ export default class Card extends Component {
                 backgroundColor: '#5D74F4',
                 justifyContent: 'center',
                 alignItems: 'center',
-                marginRight:12
+                marginRight: 12,
               }}
             >
               <Icon name="md-navigate" size={20} style={{color: '#ffffff'}} />

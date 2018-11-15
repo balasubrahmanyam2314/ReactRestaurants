@@ -41,7 +41,7 @@ const AppTabNavigator = createBottomTabNavigator({
     }
 },{
 
-    initialRouteName: 'Notification',
+    initialRouteName: 'Home',
     animationEnabled:true,
     tabBarPosition:'bottom',
     tabBarOptions:{

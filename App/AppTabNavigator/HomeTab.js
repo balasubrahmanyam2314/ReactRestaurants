@@ -114,14 +114,17 @@ export default class HomeTab extends Component {
               style={{
                 fontSize: 28,
                 color: '#fff',
-                textAlign: 'center',
+                textAlign: 'left',
                 fontWeight: 'bold',
+                marginLeft:50
               }}
             >
               {'Discover Restaurants'}
             </Text>
 
-          </LinearGradient><View
+          </LinearGradient>
+          
+          <View
             style={{
               position: 'absolute',
               flex: 1,

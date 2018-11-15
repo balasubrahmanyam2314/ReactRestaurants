@@ -20,7 +20,7 @@ export default class App extends Component {
 }
 
 const AppStackNavigator= StackNavigator({
-  Main:{
+  DashBoard:{
     screen: DashBoardScreen
   }
 })
