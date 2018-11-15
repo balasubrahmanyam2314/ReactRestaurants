@@ -8,6 +8,7 @@ import {
   StyleSheet,
   ScrollView,
   SafeAreaView,
+  Animated,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -27,7 +28,8 @@ export default class HomeTab extends Component {
   constructor () {
     super ();
     this.state = {
-      data: {},
+      data: [],
+      scrollY: new Animated.Value (0),
     };
 
     // Set dummy data for result
@@ -88,7 +90,6 @@ export default class HomeTab extends Component {
   }
 
   render () {
-    console.log (deviceWidth);
     return (
       <SafeAreaView style={{flex: 1}}>
 
@@ -104,9 +105,8 @@ export default class HomeTab extends Component {
               width: deviceWidth * 0.6,
               borderRadius: deviceWidth * 0.6 / 2,
               justifyContent: 'center',
-              alignItems: 'center',
-              top: '-15%',
-              left: '-8%',
+              top: '-10%',
+              left: '-5%',
             }}
           >
 
@@ -121,32 +121,49 @@ export default class HomeTab extends Component {
               {'Discover Restaurants'}
             </Text>
 
-          </LinearGradient>
-
-          <Icon
-            name="ios-search"
-            size={30}
-            style={{
-              padding: 12,
-              color: '#8C899A',
-              position: 'absolute',
-              alignSelf: 'flex-end',
-              marginTop: 32,
-            }}
-          />
-
-          <View
+          </LinearGradient><View
             style={{
               position: 'absolute',
-              alignSelf: 'center',
               flex: 1,
+              width: '100%',
+              height: '100%',
             }}
           >
-            <ScrollView scrollEventThrottle={16}>
+            <Animated.View
+              style={{
+                flex: 1,
+                alignItems: 'flex-end',
+                justifyContent: 'center',
+              }}
+            >
+              <Icon
+                name="ios-search"
+                size={30}
+                style={{
+                  padding: 12,
+                  color: '#8C899A',
+                  marginRight: 12,
+                }}
+              />
+            </Animated.View>
 
-              {this.renderData ()}
+            <View
+              style={{
+                alignSelf: 'center',
+                flex: 6,
+              }}
+            >
+              <ScrollView
+                scrollEventThrottle={16}
+                showsVerticalScrollIndicator={false}
+                onScroll={Animated.event ([
+                  {nativeEvent: {contentOffset: {y: this.state.scrollY}}},
+                ])}
+              >
+                {this.renderData ()}
+              </ScrollView>
+            </View>
 
-            </ScrollView>
           </View>
 
         </View>
