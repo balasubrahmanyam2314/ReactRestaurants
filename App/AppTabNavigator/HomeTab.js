@@ -16,7 +16,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import Card from './components/Card';
 
 var deviceWidth = Dimensions.get ('window').width;
-var deviceHeight = Dimensions.get ('window').height;
+
+const MIN_SEARCH_BOX_WIDTH = 54;
 
 export default class HomeTab extends Component {
   static navigationOptions = {
@@ -28,8 +29,8 @@ export default class HomeTab extends Component {
   constructor () {
     super ();
     this.state = {
-      data: [],
       scrollY: new Animated.Value (0),
+      data: [],
     };
 
     // Set dummy data for result
@@ -90,40 +91,66 @@ export default class HomeTab extends Component {
   }
 
   render () {
+    const moveHeader = this.state.scrollY.interpolate ({
+      inputRange: [0, 300],
+      outputRange: [-deviceWidth * 0.2, -deviceWidth * 0.6],
+    });
+
+    const animated_width = this.state.scrollY.interpolate ({
+      inputRange: [0, 300],
+      outputRange: [MIN_SEARCH_BOX_WIDTH, deviceWidth],
+      extrapolate: 'clamp',
+    });
+
+    const color_animation = this.state.scrollY.interpolate ({
+      inputRange: [0, 54, 300],
+      outputRange: ['transparent', 'white', 'white'],
+    });
+
+    const borderColor = this.state.scrollY.interpolate ({
+      inputRange: [0, 54, 300],
+      outputRange: ['transparent', '#333', '#333'],
+    });
+
     return (
       <SafeAreaView style={{flex: 1}}>
 
         <View style={styles.container}>
-
-          <LinearGradient
-            colors={['#756AFF', '#55D5E2']}
-            start={{x: 0.0, y: 1.0}}
-            end={{x: 1.0, y: 0.0}}
-            locations={[0.3, 0.9]}
+          <Animated.View
             style={{
-              height: deviceWidth * 0.6,
-              width: deviceWidth * 0.6,
-              borderRadius: deviceWidth * 0.6 / 2,
-              justifyContent: 'center',
-              top: '-10%',
               left: '-5%',
+              transform: [{translateY: moveHeader}],
             }}
           >
 
-            <Text
+            <LinearGradient
+              colors={['#756AFF', '#55D5E2']}
+              start={{x: 0.0, y: 1.0}}
+              end={{x: 1.0, y: 0.0}}
+              locations={[0.3, 0.9]}
               style={{
-                fontSize: 28,
-                color: '#fff',
-                textAlign: 'left',
-                fontWeight: 'bold',
-                marginLeft:50
+                height: deviceWidth * 0.6,
+                width: deviceWidth * 0.6,
+                borderRadius: deviceWidth * 0.6 / 2,
+                justifyContent: 'center',
               }}
             >
-              {'Discover Restaurants'}
-            </Text>
 
-          </LinearGradient>
-          
+              <Text
+                style={{
+                  fontSize: 28,
+                  color: '#fff',
+                  textAlign: 'left',
+                  fontWeight: 'bold',
+                  marginLeft: 50,
+                }}
+              >
+                {'Discover Restaurants'}
+              </Text>
+
+            </LinearGradient>
+          </Animated.View>
+
           <View
             style={{
               position: 'absolute',
@@ -132,23 +159,27 @@ export default class HomeTab extends Component {
               height: '100%',
             }}
           >
-            <Animated.View
+            <View
               style={{
                 flex: 1,
-                alignItems: 'flex-end',
-                justifyContent: 'center',
+                alignSelf: 'flex-end',
               }}
             >
-              <Icon
-                name="ios-search"
-                size={30}
+              <Animated.View
                 style={{
+                  width: animated_width,
                   padding: 12,
-                  color: '#8C899A',
-                  marginRight: 12,
+                  backgroundColor: color_animation,
+                  borderWidth: 2,
+                  borderRadius: 6,
+                  borderColor: borderColor,
                 }}
-              />
-            </Animated.View>
+              >
+
+                <Icon name="ios-search" size={30} style={{color: '#8C899A'}} />
+
+              </Animated.View>
+            </View>
 
             <View
               style={{
@@ -160,7 +191,9 @@ export default class HomeTab extends Component {
                 scrollEventThrottle={16}
                 showsVerticalScrollIndicator={false}
                 onScroll={Animated.event ([
-                  {nativeEvent: {contentOffset: {y: this.state.scrollY}}},
+                  {
+                    nativeEvent: {contentOffset: {y: this.state.scrollY}},
+                  },
                 ])}
               >
                 {this.renderData ()}
