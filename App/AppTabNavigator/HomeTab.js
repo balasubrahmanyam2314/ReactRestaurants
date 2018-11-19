@@ -19,6 +19,8 @@ var deviceWidth = Dimensions.get ('window').width;
 
 const MIN_SEARCH_BOX_WIDTH = 54;
 
+const MAX_SEARCH_BOX_HEIGHT = 60;
+
 export default class HomeTab extends Component {
   static navigationOptions = {
     tabBarIcon: ({tintColor}) => (
@@ -90,26 +92,42 @@ export default class HomeTab extends Component {
     return this.state.data.map (data => <Card key={data.id} data={data} />);
   }
 
+  resetAnimation () {
+    Animated.spring (this.state.scrollY, {
+      toValue: 0,
+    }).start (() => {
+      console.log('called');
+      this.refs.myScrollView.scrollTo ({x: 0, y: 0, animated: true});
+    });
+  }
+
   render () {
     const moveHeader = this.state.scrollY.interpolate ({
       inputRange: [0, 300],
       outputRange: [-deviceWidth * 0.2, -deviceWidth * 0.6],
     });
 
-    const animated_width = this.state.scrollY.interpolate ({
-      inputRange: [0, 300],
-      outputRange: [MIN_SEARCH_BOX_WIDTH, deviceWidth],
+    const searboxHeight = this.state.scrollY.interpolate ({
+      inputRange: [0, 150],
+      outputRange: [0, MAX_SEARCH_BOX_HEIGHT],
       extrapolate: 'clamp',
     });
 
-    const color_animation = this.state.scrollY.interpolate ({
-      inputRange: [0, 54, 300],
-      outputRange: ['transparent', 'white', 'white'],
+    const moveSearchIcon = this.state.scrollY.interpolate ({
+      inputRange: [0, 150],
+      outputRange: [0, -MAX_SEARCH_BOX_HEIGHT],
+      extrapolate: 'clamp',
+    });
+
+    const moveIconLeft = this.state.scrollY.interpolate ({
+      inputRange: [0, 150],
+      outputRange: [0, -deviceWidth + 54],
+      extrapolate: 'clamp',
     });
 
     const borderColor = this.state.scrollY.interpolate ({
-      inputRange: [0, 54, 300],
-      outputRange: ['transparent', '#333', '#333'],
+      inputRange: [0, 100, 150],
+      outputRange: ['transparent', '#ffffff', '#ffffff'],
     });
 
     return (
@@ -159,27 +177,34 @@ export default class HomeTab extends Component {
               height: '100%',
             }}
           >
-            <View
+            <Animated.View
               style={{
-                flex: 1,
+                height: searboxHeight,
+                backgroundColor: '#fff',
+                justifyContent: 'center',
+                borderRadius: 6,
+                borderColor: borderColor,
+                borderWidth: 2,
+              }}
+            />
+
+            <Animated.View
+              style={{
                 alignSelf: 'flex-end',
+                transform: [
+                  {translateY: moveSearchIcon},
+                  {translateX: moveIconLeft},
+                ],
               }}
             >
-              <Animated.View
-                style={{
-                  width: animated_width,
-                  padding: 12,
-                  backgroundColor: color_animation,
-                  borderWidth: 2,
-                  borderRadius: 6,
-                  borderColor: borderColor,
-                }}
-              >
 
-                <Icon name="ios-search" size={30} style={{color: '#8C899A'}} />
+              <Icon
+                name="ios-search"
+                size={30}
+                style={{color: '#8C899A', padding: 12}}
+              />
 
-              </Animated.View>
-            </View>
+            </Animated.View>
 
             <View
               style={{
@@ -188,8 +213,18 @@ export default class HomeTab extends Component {
               }}
             >
               <ScrollView
+                ref="myScrollView"
                 scrollEventThrottle={16}
                 showsVerticalScrollIndicator={false}
+                onMomentumScrollEnd={event => {
+                  this.yOffset = event.nativeEvent.contentOffset.y;
+                  console.log (this.yOffset);
+                  if (this.yOffset < 200) {
+                    {
+                      this.resetAnimation ();
+                    }
+                  }
+                }}
                 onScroll={Animated.event ([
                   {
                     nativeEvent: {contentOffset: {y: this.state.scrollY}},
