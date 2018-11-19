@@ -5,7 +5,6 @@ import {
   Dimensions,
   View,
   Text,
-  StyleSheet,
   ScrollView,
   SafeAreaView,
   Animated,
@@ -16,8 +15,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import Card from './components/Card';
 
 var deviceWidth = Dimensions.get ('window').width;
-
-const MIN_SEARCH_BOX_WIDTH = 54;
 
 const MAX_SEARCH_BOX_HEIGHT = 60;
 
@@ -96,7 +93,7 @@ export default class HomeTab extends Component {
     Animated.spring (this.state.scrollY, {
       toValue: 0,
     }).start (() => {
-      console.log('called');
+      console.log ('called');
       this.refs.myScrollView.scrollTo ({x: 0, y: 0, animated: true});
     });
   }
@@ -133,7 +130,9 @@ export default class HomeTab extends Component {
     return (
       <SafeAreaView style={{flex: 1}}>
 
-        <View style={styles.container}>
+        <View
+          style={{flex: 1, backgroundColor: '#242132', position: 'relative'}}
+        >
           <Animated.View
             style={{
               left: '-5%',
@@ -209,7 +208,7 @@ export default class HomeTab extends Component {
             <View
               style={{
                 alignSelf: 'center',
-                flex: 6,
+                flex: 1,
               }}
             >
               <ScrollView
@@ -242,10 +241,3 @@ export default class HomeTab extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create ({
-  container: {
-    flex: 1,
-    backgroundColor: '#242132',
-  },
-});
