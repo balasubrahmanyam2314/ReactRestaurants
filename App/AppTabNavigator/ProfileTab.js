@@ -162,8 +162,8 @@ export default class ProfileTab extends Component {
             }}
           >
             <ScrollView
-              style={{paddingTop: 100}}
               ref="myScrollView"
+              contentContainerStyle={{paddingTop: 100}}
               scrollEventThrottle={16}
               showsVerticalScrollIndicator={false}
               onMomentumScrollEnd={event => {
@@ -206,13 +206,7 @@ export default class ProfileTab extends Component {
                 ],
               }}
             >
-              <Icon
-                name="ios-search"
-                size={30}
-                style={{
-                  color: '#8C899A',
-                }}
-              />
+              <Icon name="ios-search" size={30} style={{color: '#8C899A'}} />
             </Animated.View>
           </View>
         </View>
