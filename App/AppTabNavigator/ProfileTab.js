@@ -8,6 +8,8 @@ import {
   ScrollView,
   SafeAreaView,
   Animated,
+  StatusBar,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -18,6 +20,13 @@ import Card from './components/Card';
 var deviceWidth = Dimensions.get ('window').width;
 
 const MAX_SEARCH_BOX_HEIGHT = 60;
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+
+const MyStatusBar = ({backgroundColor, ...props}) => (
+  <View style={[{height: STATUSBAR_HEIGHT}, {backgroundColor}]}>
+    <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+  </View>
+);
 
 export default class ProfileTab extends Component {
   static navigationOptions = {
@@ -119,98 +128,103 @@ export default class ProfileTab extends Component {
     });
 
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <View
-          style={{flex: 1, backgroundColor: '#242132', position: 'relative'}}
-        >
-          <Animated.View
-            style={{left: '-5%', transform: [{translateY: moveHeader}]}}
-          >
-            <LinearGradient
-              colors={['#756AFF', '#55D5E2']}
-              start={{x: 0.0, y: 1.0}}
-              end={{x: 1.0, y: 0.0}}
-              locations={[0.3, 0.9]}
-              style={{
-                height: deviceWidth * 0.7,
-                width: deviceWidth * 0.7,
-                borderRadius: deviceWidth * 0.7 / 2,
-                justifyContent: 'center',
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 28,
-                  color: '#fff',
-                  textAlign: 'left',
-                  fontWeight: 'bold',
-                  marginLeft: 50,
-                }}
-              >
-                {'Discover Restaurants'}
-              </Text>
-            </LinearGradient>
-          </Animated.View>
+      <View style={{flex: 1}}>
+        <MyStatusBar backgroundColor="#5E8D48" barStyle="light-content" />;
 
+        <SafeAreaView style={{flex: 1}}>
           <View
-            style={{
-              position: 'absolute',
-              width: '100%',
-              height: '100%',
-              alignItems: 'center',
-              flex: 1,
-            }}
+            style={{flex: 1, backgroundColor: '#242132', position: 'relative'}}
           >
-            <ScrollView
-              ref="myScrollView"
-              contentContainerStyle={{paddingTop: 100}}
-              scrollEventThrottle={16}
-              showsVerticalScrollIndicator={false}
-              onMomentumScrollEnd={event => {
-                this.yOffset = event.nativeEvent.contentOffset.y;
-                console.log (this.yOffset);
-              }}
-              onScroll={Animated.event ([
-                {
-                  nativeEvent: {contentOffset: {y: this.state.scrollY}},
-                },
-              ])}
-            >
-              {this.renderData ()}
-            </ScrollView>
 
             <Animated.View
+              style={{left: '-5%', transform: [{translateY: moveHeader}]}}
+            >
+              <LinearGradient
+                colors={['#756AFF', '#55D5E2']}
+                start={{x: 0.0, y: 1.0}}
+                end={{x: 1.0, y: 0.0}}
+                locations={[0.3, 0.9]}
+                style={{
+                  height: deviceWidth * 0.7,
+                  width: deviceWidth * 0.7,
+                  borderRadius: deviceWidth * 0.7 / 2,
+                  justifyContent: 'center',
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 28,
+                    color: '#fff',
+                    textAlign: 'left',
+                    fontWeight: 'bold',
+                    marginLeft: 50,
+                  }}
+                >
+                  {'Discover Restaurants'}
+                </Text>
+              </LinearGradient>
+            </Animated.View>
+
+            <View
               style={{
                 position: 'absolute',
                 width: '100%',
-                height: searboxHeight,
-                backgroundColor: '#fff',
-                justifyContent: 'center',
-                borderRadius: 6,
-                borderColor: borderColor,
-                borderWidth: 2,
-              }}
-            />
-
-            <Animated.View
-              style={{
-                position: 'absolute',
-                color: '#8C899A',
-                alignSelf: 'flex-end',
-                padding: 12,
-                marginTop: 24,
-                marginRight: 12,
-                transform: [
-                  {translateX: moveIconLeft},
-                  {translateY: moveSearchIcon},
-                ],
+                height: '100%',
+                alignItems: 'center',
+                flex: 1,
               }}
             >
-              <Icon name="ios-search" size={30} style={{color: '#8C899A'}} />
-            </Animated.View>
+              <ScrollView
+                ref="myScrollView"
+                contentContainerStyle={{paddingTop: 100}}
+                scrollEventThrottle={16}
+                showsVerticalScrollIndicator={false}
+                onMomentumScrollEnd={event => {
+                  this.yOffset = event.nativeEvent.contentOffset.y;
+                  console.log (this.yOffset);
+                }}
+                onScroll={Animated.event ([
+                  {
+                    nativeEvent: {contentOffset: {y: this.state.scrollY}},
+                  },
+                ])}
+              >
+                {this.renderData ()}
+              </ScrollView>
+
+              <Animated.View
+                style={{
+                  position: 'absolute',
+                  width: '100%',
+                  height: searboxHeight,
+                  backgroundColor: '#fff',
+                  justifyContent: 'center',
+                  borderRadius: 6,
+                  borderColor: borderColor,
+                  borderWidth: 2,
+                }}
+              />
+
+              <Animated.View
+                style={{
+                  position: 'absolute',
+                  color: '#8C899A',
+                  alignSelf: 'flex-end',
+                  padding: 12,
+                  marginTop: 24,
+                  marginRight: 12,
+                  transform: [
+                    {translateX: moveIconLeft},
+                    {translateY: moveSearchIcon},
+                  ],
+                }}
+              >
+                <Icon name="ios-search" size={30} style={{color: '#8C899A'}} />
+              </Animated.View>
+            </View>
           </View>
-        </View>
-      </SafeAreaView>
+        </SafeAreaView>
+      </View>
     );
   }
 }
